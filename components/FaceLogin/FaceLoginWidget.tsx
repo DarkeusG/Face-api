@@ -138,8 +138,9 @@ export default function FaceLoginWidget() {
                         <div className="absolute top-[33%] left-[33%] w-[33%] h-[33%] bg-[#1a1a1a] rounded-full" />
                     </div>
 
-                    {/* Main Action Button */}
-                    <div className="flex flex-col items-center gap-2">
+                    {/* Main Action Button (A Button) */}
+                    <div className="flex flex-col items-center gap-2 relative group">
+                        <span className="absolute -top-4 right-0 font-bold text-slate-500 italic text-xs">A</span>
                         <Button
                             size="lg"
                             className={cn(
@@ -156,17 +157,17 @@ export default function FaceLoginWidget() {
                         <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Scan</span>
                     </div>
 
-                    {/* Registration Button (Select/Start style) */}
+                    {/* Registration Button (Start/Select) */}
                     <div className="flex gap-4 transform translate-y-4">
                         <div className="flex flex-col items-center gap-1">
                             <Button
                                 variant="ghost"
-                                className="h-2 w-12 bg-slate-700 rounded-full shadow-[0_2px_0_#aaa] active:shadow-none active:translate-y-[2px] p-0 hover:bg-slate-600"
+                                className="h-2 w-12 bg-slate-700 rounded-full shadow-[0_2px_0_#aaa] active:shadow-none active:translate-y-[2px] p-0 hover:bg-slate-600 focus:ring-0"
                                 onClick={captureAndRegister}
                                 title="Register (Debug)"
                                 aria-label="Register Face"
                             />
-                            <span className="text-[8px] font-bold text-slate-500 uppercase">Register</span>
+                            <span className="text-[8px] font-bold text-slate-500 uppercase tracking-widest">START</span>
                         </div>
                     </div>
                 </div>
