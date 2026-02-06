@@ -54,26 +54,41 @@ export default function FaceLoginWidget() {
             {/* Main Pokedex Screen Container */}
             <div className="bg-[#dedede] p-6 md:p-8 rounded-bl-[40px] rounded-br-[10px] rounded-t-[10px] shadow-[inset_-5px_-5px_10px_rgba(0,0,0,0.2),_10px_10px_20px_rgba(0,0,0,0.4)] border-4 border-[#b0b0b0]">
 
-                {/* Header Text */}
-                <div className="text-center space-y-2 mb-4">
-                    <h1 className="text-xl md:text-2xl font-bold tracking-tight text-slate-800 uppercase">
-                        PokéID Scanner
-                    </h1>
-                    <div className="h-1 w-full bg-black/10 rounded-full" />
+                {/* Header Text & Vents */}
+                <div className="flex items-center justify-between mb-4 px-2">
+                    <div className="flex flex-col gap-1">
+                        <div className="w-16 h-2 bg-slate-700 rounded-full shadow-inner" />
+                        <div className="w-16 h-2 bg-slate-700 rounded-full shadow-inner" />
+                    </div>
+                    <div className="text-center">
+                        <h1 className="text-xl md:text-2xl font-bold tracking-tight text-slate-800 uppercase text-shadow-retro">
+                            PokéID
+                        </h1>
+                        <span className="text-[10px] font-bold text-slate-500 tracking-widest block -mt-1">VER 2.0</span>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                        <div className="w-16 h-2 bg-slate-700 rounded-full shadow-inner" />
+                        <div className="w-16 h-2 bg-slate-700 rounded-full shadow-inner" />
+                    </div>
                 </div>
 
                 {/* Inner Screen Area */}
-                <div className="w-full relative bg-black border-8 border-[#5e5e5e] rounded-lg p-1 overflow-hidden shadow-inner">
-                    <div className="relative w-full aspect-video bg-[#0f380f] overflow-hidden rounded-[2px]">
+                <div className="w-full relative bg-gray-900 border-[6px] border-[#5e5e5e] rounded-lg p-2 overflow-hidden shadow-inner box-shadow-inset">
+                    {/* Glass Glare Reflection */}
+                    <div className="absolute top-0 right-0 w-[50%] h-full bg-linear-to-bl from-white/10 to-transparent pointer-events-none z-20 skew-x-12" />
 
-                        {/* Scanlines Overlay */}
-                        <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-[5] pointer-events-none background-size-[100%_2px,3px_100%]" />
+                    <div className="relative w-full aspect-video bg-[#0f380f] overflow-hidden rounded-[2px] shadow-inner">
+
+                        {/* Scanlines & CRT Overlay */}
+                        <div className="scanlines absolute inset-0 z-10 pointer-events-none opacity-50" />
+                        <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/30 pointer-events-none z-10" />
 
                         {/* State: Models Loading */}
+                        {/* State: Models Loading */}
                         {!isModelLoaded && (
-                            <div className="absolute inset-0 flex flex-col items-center justify-center text-[#8bac0f]">
-                                <p className="animate-pulse mb-4 text-xs">LOADING MODULES...</p>
-                                <Progress value={45} className="w-[60%] h-4 border-2 border-[#8bac0f] bg-black [&>div]:bg-[#8bac0f]" />
+                            <div className="absolute inset-0 flex flex-col items-center justify-center text-[#8bac0f] z-20 bg-black/90">
+                                <div className="pokeball-spinner mb-6 scale-75" />
+                                <p className="animate-pulse text-xs tracking-widest crt-screen">BOOTING SYSTEM...</p>
                             </div>
                         )}
 
