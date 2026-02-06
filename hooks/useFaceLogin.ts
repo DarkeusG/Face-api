@@ -232,6 +232,7 @@ export function useFaceLogin(): UseFaceLoginReturn {
         captureAndRegister,
         captureAndLogin,
         reset,
-        isModelLoaded
+        isModelLoaded,
+        logs
     };
 }
