@@ -1,26 +1,106 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
-@theme inline {
+@theme {
+  --font-press-start: var(--font-press-start), "Courier New", monospace;
+
+  /* Pokémon/Pokedex Theme Colors */
+  --color-pokedex-red: #DC0A2D;
+  --color-pokedex-dark-red: #8B0000;
+  --color-screen-blue: #23B1E7;
+  --color-screen-green: #51AE5F;
+  --color-sensor-blue: #3B4CCA;
+  --color-sensor-yellow: #FFCB05;
+  --color-sensor-green: #44685E;
+  
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --radius: 0.5rem;
+  
+  /* Pokedex Theme (Light Mode Default) */
+  --background: oklch(0.97 0.001 106.424); /* Off-white for inner content */
+  --foreground: oklch(0.20 0.02 264.376); /* Dark slate */
+  
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.20 0.02 264.376);
+  
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.20 0.02 264.376);
+  
+  --primary: #FFCB05; /* Electric Yellow (Main Action) */
+  --primary-foreground: #3B4CCA; /* Blue text on yellow */
+  
+  --secondary: #3B4CCA; /* Water Blue */
+  --secondary-foreground: #FFFFFF;
+  
+  --muted: oklch(0.85 0.01 264.376);
+  --muted-foreground: oklch(0.55 0.02 264.376);
+  
+  --accent: #51AE5F; /* Leaf Green */
+  --accent-foreground: #FFFFFF;
+  
+  --destructive: #DC0A2D; /* Pokedex Red */
+  --destructive-foreground: #FFFFFF;
+  
+  --border: oklch(0.20 0.02 264.376); /* Thick dark borders */
+  --input: oklch(0.923 0.003 48.717);
+  --ring: #3B4CCA;
+}
+
+.dark {
+  /* Dark Mode Pokedex (Maybe "Team Rocket" style?) - Keeping mostly same structure for now, can adjust */
+  --background: #1a1a1a;
+  --foreground: #ffffff;
+  --card: #2a2a2a;
+  --card-foreground: #ffffff;
+  --primary: #FFCB05;
+  --primary-foreground: #000000;
+  --secondary: #3B4CCA;
+  --secondary-foreground: #ffffff;
+  --muted: #3a3a3a;
+  --muted-foreground: #a0a0a0;
+  --accent: #51AE5F;
+  --accent-foreground: #ffffff;
+  --destructive: #aa0000;
+  --destructive-foreground: #ffffff;
+  --border: #4a4a4a;
+  --ring: #FFCB05;
+}
+
+@layer base {
+  * {
+    @apply border-border;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    @apply bg-background text-foreground font-[family-name:--font-press-start];
+  }
 }
