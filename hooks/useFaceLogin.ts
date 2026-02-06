@@ -32,12 +32,18 @@ export function useFaceLogin(): UseFaceLoginReturn {
     const [error, setError] = useState<string | null>(null);
     const [distance, setDistance] = useState<number | null>(null); // For debug feedback
     const [isModelLoaded, setIsModelLoaded] = useState(false);
+    const [logs, setLogs] = useState<string[]>([]);
+
+    const addLog = useCallback((message: string) => {
+        setLogs(prev => [...prev, message]);
+    }, []);
 
     // Load models on mount
     useEffect(() => {
         async function loadModels() {
             try {
                 setLoginState("LOADING_MODELS");
+                addLog("Initializing neural networks...");
                 const MODEL_URL = "/models"; // Ensure this matches user's public folder structure
                 await Promise.all([
                     faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
@@ -46,6 +52,7 @@ export function useFaceLogin(): UseFaceLoginReturn {
                 ]);
                 setIsModelLoaded(true);
                 setLoginState("IDLE");
+                addLog("Models loaded successfully. System ready.");
             } catch (e) {
                 console.error("Error loading models:", e);
                 setError("Failed to load face detection models.");
@@ -150,16 +157,15 @@ export function useFaceLogin(): UseFaceLoginReturn {
             const descriptor = await getFaceDescriptor();
             if (descriptor) {
                 localStorage.setItem("face_descriptor_demo", JSON.stringify(Array.from(descriptor)));
-                // We successfully registered. Now what? 
-                // Let's go to a temporary Success state or just back to IDLE with a toast?
-                // For now, let's keep it simple and just go back to IDLE but maybe log it.
                 console.log("Face registered successfully");
                 setLoginState("IDLE");
-                // Allow UI to update before alerting/notifying
+                addLog("Face data captured for new user.");
+                addLog("User registration complete.");
                 setTimeout(() => alert("Face registered successfully! You can now verify."), 100);
             } else {
                 setError("No face detected. Try again.");
                 setLoginState("CAMERA_READY");
+                addLog("Registration failed: No face detected.");
             }
         } catch (e) {
             console.error(e);
@@ -199,9 +205,11 @@ export function useFaceLogin(): UseFaceLoginReturn {
             // Threshold for matching (~0.5 - 0.6 is good for tinyFaceDetector)
             if (distance < 0.55) {
                 setLoginState("SUCCESS");
+                addLog("IDENTITY CONFIRMED. ACCESS GRANTED.");
             } else {
                 setError(`Face mismatch (Distance: ${distance.toFixed(3)})`);
                 setLoginState("FAILURE");
+                addLog(`IDENTITY MISMATCH. Distance: ${distance.toFixed(3)}`);
             }
 
         } catch (e) {
