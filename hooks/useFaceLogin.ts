@@ -160,7 +160,7 @@ export function useFaceLogin(): UseFaceLoginReturn {
             if (descriptor) {
                 localStorage.setItem("face_descriptor_demo", JSON.stringify(Array.from(descriptor)));
                 console.log("Face registered successfully");
-                setLoginState("IDLE");
+                setLoginState("CAMERA_READY");
                 addLog("Face data captured for new user.");
                 addLog("User registration complete.");
                 setTimeout(() => alert("Face registered successfully! You can now verify."), 100);
