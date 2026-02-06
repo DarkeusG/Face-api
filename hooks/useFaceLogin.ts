@@ -21,6 +21,7 @@ export type UseFaceLoginReturn = {
     captureAndLogin: () => Promise<void>;
     reset: () => void;
     isModelLoaded: boolean;
+    logs: string[];
 };
 
 export function useFaceLogin(): UseFaceLoginReturn {

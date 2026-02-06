@@ -10,6 +10,8 @@ import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { ShieldCheck, Scan, AlertTriangle, Fingerprint } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+import { SystemLog } from "./SystemLog";
+
 export default function FaceLoginWidget() {
     const {
         videoRef,
@@ -21,7 +23,8 @@ export default function FaceLoginWidget() {
         captureAndRegister,
         captureAndLogin,
         reset,
-        isModelLoaded
+        isModelLoaded,
+        logs // Get logs from hook
     } = useFaceLogin();
 
     // Auto-start camera when widget mounts
@@ -131,6 +134,7 @@ export default function FaceLoginWidget() {
                             )}
                             onClick={captureAndLogin}
                             disabled={!isCameraReady}
+                            aria-label="Scan Face"
                         >
                             <Scan className="w-8 h-8" />
                         </Button>
@@ -145,11 +149,15 @@ export default function FaceLoginWidget() {
                                 className="h-2 w-12 bg-slate-700 rounded-full shadow-[0_2px_0_#aaa] active:shadow-none active:translate-y-[2px] p-0 hover:bg-slate-600"
                                 onClick={captureAndRegister}
                                 title="Register (Debug)"
+                                aria-label="Register Face"
                             />
                             <span className="text-[8px] font-bold text-slate-500 uppercase">Register</span>
                         </div>
                     </div>
                 </div>
+
+                {/* System Log Display */}
+                <SystemLog logs={logs} />
 
                 {/* Status Light */}
                 <div className="absolute bottom-8 right-8 flex gap-2">
