@@ -85,9 +85,11 @@ export function useFaceLogin(): UseFaceLoginReturn {
                     await videoRef.current.play();
                 }
                 setLoginState("CAMERA_READY");
+                addLog("Camera stream re-connected.");
                 return;
             }
 
+            addLog("Requesting camera access...");
             const stream = await navigator.mediaDevices.getUserMedia({
                 video: { facingMode: "user" },
                 audio: false,
